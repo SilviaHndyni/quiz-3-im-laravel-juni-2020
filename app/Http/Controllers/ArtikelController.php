@@ -15,8 +15,7 @@ class ArtikelController extends Controller
     public function index()
     {
         $artikel = ArtikelModel::get_all();
-
-        return view('artikel.index');
+        return view('artikel.index', compact('artikel'));
     }
 
     /**
@@ -50,7 +49,9 @@ class ArtikelController extends Controller
      */
     public function show($id)
     {
-        //
+        $artikel = ArtikelModel::find_by_id($id);
+
+        return view('artikel.show', compact('artikel'));
     }
 
     /**
@@ -61,7 +62,9 @@ class ArtikelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $artikel = ArtikelModel::find_by_id($id);
+        
+        return view('artikel.edit', compact('artikel'));
     }
 
     /**
@@ -71,9 +74,11 @@ class ArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        //
+        $artikel = ArtikelModel::update($id, $request->all());
+        
+        return redirect('/artikel');
     }
 
     /**
